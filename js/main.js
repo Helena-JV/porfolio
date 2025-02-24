@@ -3,7 +3,7 @@ gsap.config({
   })
   
   // https://gsap.com/docs/v3/Eases/CustomEase/
-  gsap.registerPlugin(CustomEase, SplitText);
+  gsap.registerPlugin(CustomEase);
 
 //FUNCIONES PERSONALIZADAS -----------------------------------------------
 

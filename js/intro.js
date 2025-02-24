@@ -6,10 +6,6 @@
     let intro_title = intro_container.querySelector('.intro-title');
     let intro_subtitle = intro_container.querySelector('.intro-subtitle');
 
-// SPLIT TEXT --------------------------------------------------------
-    let intro_title_split = new SplitText(intro_title, {
-        type: 'words, chars'
-    });
 
 // TIMELINE --------------------------------------------------------
     intro_tl = gsap.timeline({
@@ -31,8 +27,6 @@
             intro_ico_punto = null;
             intro_title = null;
             intro_subtitle = null;
-            intro_title_split.revert();
-            intro_title_split = null;
             intro_tl = null;
         } 
     });
@@ -48,7 +42,7 @@
         scale: 0.001
     });
 
-    gsap.set (intro_title_split.chars, {
+    gsap.set (intro_title, {
         yPercent: 20,
         opacity: 0
     });
@@ -67,9 +61,9 @@
         scale: 1
 })
 
-    .to (intro_title_split.chars, {
+    .to (intro_title, {
         yPercent:0,
-        stagger: 0.1,
+        duration:1,
         opacity: 1,
         ease: "elastic.out(1,0.3)",
         rotation: 0
