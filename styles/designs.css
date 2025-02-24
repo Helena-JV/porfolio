@@ -20,4 +20,8 @@
 
 .intro-title {
     padding-block: clamp(3rem, 3vw, 1rem);
+
+    span {
+        display: inline-block;
+    }
 }

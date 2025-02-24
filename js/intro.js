@@ -7,6 +7,26 @@
     let intro_subtitle = intro_container.querySelector('.intro-subtitle');
 
 
+// SPLIT TEXT --------------------------------------------------------
+    function wrapLettersInSpans(element) {
+        element.innerHTML = element.innerHTML
+            .split(/(<br\s*\/?>)/g) // Divide manteniendo los <br>
+            .map(part =>
+                part === "<br>" || part === "<br/>" ? part : 
+                part.split("").map(letter => 
+                    letter === " " ? `<span>&nbsp;</span>` : `<span>${letter}</span>`
+                ).join("")
+            ).join("");
+    }
+    
+    // Aplicar la función al título
+    wrapLettersInSpans(document.querySelector(".intro-title"));
+    let letters_title = document.querySelectorAll(".intro-title span");
+
+    
+    
+
+
 // TIMELINE --------------------------------------------------------
     intro_tl = gsap.timeline({
         defaults: {
@@ -25,8 +45,8 @@
             intro_container = null;
             intro_ico = null;
             intro_ico_punto = null;
-            intro_title = null;
-            intro_subtitle = null;
+            //intro_title = null; No quitar por seo
+            //intro_subtitle = null; No quitar por seo
             intro_tl = null;
         } 
     });
@@ -42,9 +62,10 @@
         scale: 0.001
     });
 
-    gsap.set (intro_title, {
+    gsap.set (letters_title, {
         yPercent: 20,
-        opacity: 0
+        opacity: 0,
+        rotation: -20
     });
 
     gsap.set (intro_subtitle, {
@@ -61,8 +82,9 @@
         scale: 1
 })
 
-    .to (intro_title, {
+    .to (letters_title, {
         yPercent:0,
+        stagger: 0.1,
         duration:1,
         opacity: 1,
         ease: "elastic.out(1,0.3)",
@@ -80,7 +102,7 @@
 
 .to (intro_ico_punto, {  
     scale: 300,
-    duration:7,
+    duration: 3,
 
 },"-=2.5")
 
