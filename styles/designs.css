@@ -6,7 +6,7 @@
     position: relative;
     width: clamp(2rem, 5vw, 6rem);
     height: auto;
-    transform-origin: center;
+    transform-origin: 50% 50%;
 }
 
 .circle-hj {

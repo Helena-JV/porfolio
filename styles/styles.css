@@ -14,8 +14,8 @@
     fill: var(--azul);
 }
 
-.fill-ejemplo {
-    fill: #000;
+.bg-ejemplo {
+    background-color: aqua;
 }
 
 
