@@ -1,0 +1,96 @@
+:root {
+    --azul: #6439ff;
+}
+
+/*COLORES------------------------------------------------------*/
+/*AZUL*/
+.clr-azul {
+    color: var(--azul);
+}
+.bg-azul {
+    background-color: var(--azul);
+}
+.fill-azul {
+    fill: var(--azul);
+}
+
+.fill-ejemplo {
+    fill: #000;
+}
+
+
+/*TEXTO-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_*/
+
+    /*TAMAÑO FUENTES------------------------------------------------------*/
+    .fnt-xxl {
+        font-size: clamp(3rem, 10vw, 7rem);
+    }
+    .fnt-xl {
+        font-size: clamp(2rem, 5vw, 6rem);
+    }
+
+    .fnt-l {
+        font-size: clamp(1.5rem, 3vw, 3rem);
+    }
+
+    /*TEXT ALIGN------------------------------------------------------*/
+    .txt-center {
+        text-align: center;
+    }
+
+/*TAMAÑOS-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_*/
+    .wth-100 {
+        width: 100%;
+    }
+
+    .hght-100 {
+        height: 100vh;
+    }
+
+/*OVERFLOW-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_*/
+    .overflow-hidden {
+        overflow: hidden;
+    }
+
+/*COLOCACIÓN-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_*/
+    
+    /*DISPLAY------------------------------------------------------*/
+    .display-grid {
+        display: grid;
+    }
+
+    .display-flex {
+        display: flex;
+    }
+
+    /*POSICIÓN------------------------------------------------------*/
+        .pos-rel {
+            position: relative;
+        }
+        
+        .pos-abs {
+            position: absolute;
+        }
+
+    
+    /*ALINEACIÓN------------------------------------------------------*/
+        .cntnt-center-center {
+            justify-items: center;
+            align-content: center;
+            align-items: center;
+        }
+
+    /*FLEX-DIRECTION--------------------------------------------------*/
+        .flex-col {
+            flex-direction: column;
+        }
+        .flex-row {
+            flex-direction: row;
+        }
+
+    /*GAP------------------------------------------------------*/
+        .gap-30 {
+            gap: 30px;
+        }
+
+        

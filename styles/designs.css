@@ -1,0 +1,23 @@
+.icon-container {
+    position: relative;
+    z-index: 100;
+}
+.intro-icon {
+    position: relative;
+    width: clamp(2rem, 5vw, 6rem);
+    height: auto;
+}
+
+.circle-hj {
+    position: absolute;
+    top: 25%;
+    left: 70%;
+    border-radius: 100%;
+    transform-origin: center;
+    width:10px;
+    height: 10px;
+}
+
+.intro-title {
+    padding-block: clamp(3rem, 3vw, 1rem);
+}

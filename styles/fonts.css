@@ -1,0 +1,100 @@
+
+/* UNBOUNDED (TITLE) ***********************************************/
+@font-face {
+    font-family: "Unbounded-local";
+    font-weight: 400;
+    font-style: normal;
+    src: url("assets/fonts/title/regular/Unbounded-Regular.woff") format("woff"),
+         url("assets/fonts/title/regular/Unbounded-Regular.woff2") format("woff2"),
+         url("assets/fonts/title/regular/Unbounded-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Unbounded-local";
+    font-weight: 600;
+    font-style: normal;
+    src: url("assets/fonts/title/bold/Unbounded-SemiBold.woff") format("woff"),
+         url("assets/fonts/title/bold/Unbounded-SemiBold.woff2") format("woff2"),
+         url("assets/fonts/title/bold/Unbounded-SemiBold.ttf") format("truetype");
+}
+
+
+.fnt-title-regular {
+    font-family: "Unbounded", "Unbounded-local", Verdana, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    line-height: 1.2;
+    font-style: normal;
+}
+
+.fnt-title-bold {
+    font-family: "Unbounded", "Unbounded-local", Verdana, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    line-height: 1.2;
+    font-style: normal;
+}
+
+/* CAMPAIGN (TEXTO + ITALIC) ***********************************************/
+
+@font-face {
+    font-family: "Campaign-local";
+    font-weight: 300; /* Peso light */
+    font-style: normal;  
+    src: url("aassets/fonts/text/light/CampaignLight.woff") format("woff"),
+         url("assets/fonts/text/light/CampaignLight.woff2") format("woff2"),
+         url("assets/fonts/text/light/Campaign_Light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Campaign-local";
+    font-weight: 400; /* Peso normal */
+    font-style: normal;
+    src: url("assets/fonts/text/regular/CampaignRegular.woff") format("woff"),
+         url("assets/fonts/text/regular/CampaignRegular.woff2") format("woff2"),
+         url("assets/fonts/text/regular/Campaign_Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Campaign-local";
+    font-weight: 700; /* Peso bold */
+    font-style: normal;  
+    src: url("assets/fonts/text/black/CampaignBlack.woff") format("woff"),
+         url("assets/fonts/text/black/CampaignBlack.woff2") format("woff2"),
+         url("assets/fonts/text/black/CampaignBlack.otf") format("opentype");
+}
+
+@font-face { /*No se por qué no me carga esta fuente*/
+    font-family: "Roboto-serif-local";
+    font-weight: 500;
+    font-style: italic;  
+    src: url("assets/fonts/Italic/RobotoSerif28ptExpanded-MediumItalic.woff") format("woff"),
+         url("assets/fonts/Italic/RobotoSerif28ptExpanded-MediumItalic.woff2") format("woff2"),
+         url("assets/fonts/Italic/RobotoSerif_28pt_Expanded-MediumItalic.ttf") format("truetype");
+}
+
+.fnt-light {
+    font-family: "campaign", "Campaign-local", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.fnt-regular {
+    font-family: "campaign", "Campaign-local", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.fnt-bold {
+    font-family: "campaign", "Campaign-local", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+.fnt-serif {
+    font-family: "campaign-serif", "Roboto-serif-local", serif;
+    font-weight: 500;
+    font-feature-settings: "salt" 1;
+    text-wrap: balance;
+}
