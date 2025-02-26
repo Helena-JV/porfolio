@@ -56,7 +56,7 @@
         opacity: 0,
         scale: 0.5,
         rotation: -360*4,
-        transformOrigin: "50% 50%"
+    
     });
 
     gsap.set (intro_ico_punto, {

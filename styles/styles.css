@@ -14,8 +14,19 @@
     fill: var(--azul);
 }
 
-.bg-ejemplo {
+.bg-ejemplo1 {
     background-color: aqua;
+}
+.bg-ejemplo2 {
+    background-color:blueviolet;
+}
+
+.bg-ejemplo3 {
+    background-color:coral;
+}
+
+.bg-ejemplo4 {
+    background-color:darkcyan;
 }
 
 
@@ -44,7 +55,7 @@
     }
 
     .hght-100 {
-        height: 100vh;
+        height: 100dvh;
     }
 
 /*OVERFLOW-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_*/
