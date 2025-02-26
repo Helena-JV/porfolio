@@ -14,6 +14,18 @@
     fill: var(--azul);
 }
 
+/*BLANCO*/
+
+.clr-blanco {
+    color: white;
+}
+
+.bg-blanco {
+    background-color: white;
+}
+
+/*PRUEBAS*/
+
 .bg-ejemplo1 {
     background-color: aqua;
 }
@@ -72,6 +84,14 @@
 
     .display-flex {
         display: flex;
+    }
+
+    /*CENTER CENTER------------------------------------------------------*/
+    .display-flex-center-center-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     /*POSICIÓN------------------------------------------------------*/
