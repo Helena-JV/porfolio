@@ -1,3 +1,11 @@
+/*HEADER------------------------------------------------*/
+.header-bar {
+    height: clamp(3rem, 3vw, 5rem);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--home-margins);
+}
+
 /*INTRO------------------------------------------------*/
 .intro-container {
     inset: 0;
@@ -41,5 +49,6 @@
 .home-container {
     .home-blue-mask {
         align-self: center;
+        position: absolute;
     }
 }
