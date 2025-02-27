@@ -27,8 +27,13 @@
     }
 
 
-
-
+// TIMELINE --------------------------------------------------------
+    const home_tl = gsap.timeline({
+        defaults: { duration: 0.5, ease: "power1.inOut" },
+        onComplete: () => {
+            home_tl.kill(); 
+        }
+    });
 
 // SET ---------------------------------------------------------------------
     home_tl
