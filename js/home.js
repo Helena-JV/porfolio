@@ -1,74 +1,100 @@
 // ELEMENTOS DEL DOM --------------------------------------------------------
-    const home_container = document.querySelector('.home-container');
-    const home_blue_mask = home_container.querySelector('.home-blue-mask');
-    const header_bar = document.querySelector('.header-bar');
+    const homeContainer = document.querySelector('.home-container');
+    const headerBar = document.querySelector('.header-bar');
+    const homeBlueMask = homeContainer.querySelector('.home-blue-mask');
 
-// VARIABLES CSS --------------------------------------------------------
-    const css_vars = getComputedStyle(document.documentElement);
-    let home_margins = css_vars.getPropertyValue('--home-margins').trim();
-    
-    let home_margins_px = (parseFloat(home_margins) / 100) * window.innerWidth; // Convertir `vw` a `px`
 
-// Limitar el valor a un máximo de 30px
-if (home_margins_px >= 30) {
-    home_margins_px = 30; // Se queda en px si supera 30px
-}
-
-// Convertirlo en string para CSS
-let home_margins_css = `${home_margins_px}px`;
-console.log(home_margins_css);
-console.log(home_margins_px);
-console.log(home_margins);
-
-// FUNCIÓN PARA RECALCULAR ALTURAS ------------------------------------------
-    function updateSizes() {
-        let header_height = header_bar.getBoundingClientRect().height;
-        home_container.style.height = `calc(100dvh - ${header_height}px)`;
-        home_blue_mask.style.height = `calc(100% - ${home_margins_css}/2)`;
+// FUNCIÓN PARA OBTENER LA ALTURA DEL HEADER ----------------------------------------
+    function getHeaderHeight() {
+        return headerBar.getBoundingClientRect().height || 50; // Si no detecta altura, usar 50px por defecto
     }
+
+
+// FUNCIÓN PARA OBTENER EL PADDING EN PX SEGÚN `VW` --------------------------
+    function getPaddingVW() {
+        return `${(3 * window.innerWidth) / 100}px`; // Convierte 3vw a píxeles
+    }
+
+
+// FUNCIÓN PARA RECALCULAR ALTURA Y PADDING DEL CONTENEDOR -------------------
+    function updateLayout() {
+        let headerHeight = getHeaderHeight();
+        homeContainer.style.height = `calc(100dvh - ${headerHeight}px)`;
+
+        homeContainer.style.paddingRight = getPaddingVW();
+        homeContainer.style.paddingBottom = getPaddingVW();
+        homeContainer.style.paddingLeft = getPaddingVW();
+    }
+
 
 // TIMELINE --------------------------------------------------------
     const home_tl = gsap.timeline({
-        defaults: {
-            duration: 1,
-            ease: "power1.inOut",
+        defaults: { duration: 0.5, ease: "power1.inOut" },
+        onComplete: () => {
+            home_tl.kill(); 
         }
     });
 
-// SET --------------------------------------------------------
-    home_tl.set(header_bar, {
-        yPercent: -100
-    })
+// SET ---------------------------------------------------------------------
+    home_tl
+        .set(headerBar, { 
+            yPercent: -100 
+        })
 
-    .set(home_container, {
-        y: () => -header_bar.getBoundingClientRect().height,
-        height: "100dvh"
-    })
+        .set(homeContainer, { 
+            padding: "0px",
+            height: "100dvh" 
+        });
 
-    .set(home_blue_mask, {
-        top: `calc(${home_margins_css}/2)`,
-        width: "100%",
-        height: "100%",
+// LABELS ---------------------------------------------------------------------
+    home_tl
+        .addLabel("fase1", "+=3")
+        .addLabel("fase2", "+=4");
+
+
+// ANIMACIONES ----------------------------------------------------------------
+    home_tl
+        .to(homeContainer, {
+            padding: getPaddingVW()
+        }, "fase1") 
+
+        .to(homeBlueMask, {
+            borderRadius: "20px"
+        }, "fase1")
+
+        .to(headerBar, {   
+            yPercent: 0,
+            onUpdate: updateLayout 
+        }, "fase2") 
+
+        .to(homeContainer, {
+            paddingTop: "0px",
+        }, "fase2") 
+
+
+        .to(homeContainer, {
+            paddingRight: getPaddingVW(),
+            paddingBottom: getPaddingVW(),
+            paddingLeft: getPaddingVW()
+        }, "fase2+=0.1"); 
+
+
+// RESIZE -------------------------------------------------------------
+    window.addEventListener("resize", () => {
+        gsap.killTweensOf(homeContainer); 
+        gsap.killTweensOf(headerBar); 
+        gsap.set(homeContainer, { clearProps: "all" });
+        gsap.set(headerBar, { clearProps: "all" }); 
+
+        homeContainer.style.transition = "none"; 
+        homeContainer.style.height = `calc(100dvh - ${getHeaderHeight()}px)`;
+        homeContainer.style.paddingRight = getPaddingVW();
+        homeContainer.style.paddingBottom = getPaddingVW();
+        homeContainer.style.paddingLeft = getPaddingVW();
+
+        homeContainer.offsetHeight; 
+
+        setTimeout(() => {
+            homeContainer.style.transition = "";
+        }, 100);
     });
-
-// TWEEN ------------------------------------------------
-    home_tl.to(home_blue_mask, {
-        width: `calc(100% - ${home_margins_css})`,
-        height: `calc(100% - ${home_margins_css}/2)`,
-        top: 0,
-        borderRadius: "20px",
-    }, "+=3")
-
-    .to(header_bar, {   
-        yPercent: 0,
-        onUpdate: updateSizes, // Recalcular en cada frame de animación
-    }, "<")
-
-    .to(home_container, {
-        y: 0,
-    }, "<");
-
-// ACTUALIZAR AL REDIMENSIONAR --------------------------------------
-window.addEventListener("resize", updateSizes);
-
-

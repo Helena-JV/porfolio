@@ -1,6 +1,7 @@
 :root {
     --azul: #6439ff;
     --home-margins: 3vw;
+    --header-height: clamp(3rem, 5vw, 5rem);
 }
 
 /*COLORES------------------------------------------------------*/

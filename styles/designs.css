@@ -1,10 +1,13 @@
 /*HEADER------------------------------------------------*/
 .header-bar {
-    height: clamp(3rem, 3vw, 5rem);
+    width: 100%;
+    height: var(--header-height);
     display: flex;
     align-items: center;
     padding: 0 var(--home-margins);
+    position: absolute; /* 🔹 NO ocupa espacio en el flujo del documento */
 }
+
 
 /*INTRO------------------------------------------------*/
 .intro-container {
@@ -47,8 +50,17 @@
 
 /*HOME------------------------------------------------*/
 .home-container {
-    .home-blue-mask {
-        align-self: center;
-        position: absolute;
-    }
+    height: 100dvh; /* 🔹 Ocupa toda la pantalla al inicio */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: height 0.5s ease-in-out;
+    position: absolute; /* Permite que el header se superponga sin afectar el tamaño */
+    bottom: 0;
+}
+
+
+.home-blue-mask {
+    width: 100%;
+    height: 100%;
 }
