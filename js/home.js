@@ -1,6 +1,8 @@
 // ELEMENTOS DEL DOM --------------------------------------------------------
-    const homeContainer = document.querySelector('.home-container');
     const headerBar = document.querySelector('.header-bar');
+    const iconWaveHeader = headerBar.querySelector('.icon-wave-header');
+
+    const homeContainer = document.querySelector('.home-container');
     const homeBlueMask = homeContainer.querySelector('.home-blue-mask');
 
 
@@ -38,7 +40,7 @@
 // SET ---------------------------------------------------------------------
     home_tl
         .set(headerBar, { 
-            yPercent: -100 
+            yPercent: -200 
         })
 
         .set(homeContainer, { 

@@ -10,6 +10,10 @@ html {
   box-sizing: inherit;
 }
 
+body {
+  overflow: hidden;
+}
+
 /* Remove default margin and padding */
 body,
 h1,

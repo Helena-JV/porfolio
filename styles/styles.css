@@ -26,7 +26,16 @@
     background-color: white;
 }
 
+.fill-blanco {
+    fill: white;
+}
+
+
 /*PRUEBAS*/
+
+.fill-ejemplo {
+    fill: aqua;
+}
 
 .bg-ejemplo1 {
     background-color: aqua;
