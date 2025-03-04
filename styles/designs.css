@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     padding: 0 var(--home-margins);
-    position: relative; /* 🔹 NO ocupa espacio en el flujo del documento */  
+    position: relative; 
 
     /*Texto helena de Juan*/
     & p:first-child {
@@ -40,33 +40,39 @@
     /*ICONO HJ*/
     .icon-wave-header {
         position: absolute;
-        height: auto;
         width: 40%;
         top: 99%;
-        left: -10%;  
-
+        left: -10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
         @media screen and (min-width: 520px) {
             width: 200px;
             left: 50%;
             transform: translateX(-50%);
         }
-        /*Icono hj*/
-        img {
-            width: clamp(20px, 7vw, 30px);
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 60%;
-        }
-        /*Onda*/
+    
+        /* Onda blanca */
         div {
             position: absolute;
             width: 100%;
             height: 10px;
-            bottom: 98%;
-            background-color: white ;
+            bottom: 100%;
+            background-color: white;
             border-radius: 2px;
         }
+    
+        /* Icono hj */
+        img {
+            width: clamp(20px, 7vw, 30px);
+            position: absolute;
+            top: calc(var(--header-height) + (var(--icon-wave-height) / 2)); 
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    
+        /* SVG */
         svg {
             width: 100%;
             height: auto;
@@ -75,6 +81,15 @@
         }
     }
 
+    .icon-wave-header::before {
+        content: "";
+        position: absolute;
+        background-color:white;
+        width: 100%;
+        height: 20px;
+        bottom: 99%;
+    }
+    
 
 /*INTRO------------------------------------------------*/
 .intro-container {
