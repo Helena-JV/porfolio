@@ -67,6 +67,10 @@
         font-size: clamp(1.5rem, 3vw, 3rem);
     }
 
+    .fnt-r {
+        font-size: 1rem;
+    }
+
     /*TEXT ALIGN------------------------------------------------------*/
     .txt-center {
         text-align: center;

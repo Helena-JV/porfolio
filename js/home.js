@@ -5,6 +5,8 @@ const iconWaveHeader = headerBar.querySelector('.icon-wave-header');
 const homeContainer = document.querySelector('.home-container');
 const homeBlueMask = homeContainer.querySelector('.home-blue-mask');
 
+
+
 // FUNCIÓN PARA OBTENER LA ALTURA DEL HEADER ----------------------------------------
 function getHeaderHeight() {
     return headerBar.getBoundingClientRect().height || 50;
@@ -42,6 +44,7 @@ home_tl
         padding: "0px",
         height: "100dvh" 
     });
+    
 
 // LABELS ---------------------------------------------------------------------
 home_tl
@@ -93,3 +96,4 @@ window.addEventListener("resize", () => {
         homeContainer.style.transition = "";
     }, 100);
 });
+
