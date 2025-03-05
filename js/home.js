@@ -97,3 +97,47 @@ window.addEventListener("resize", () => {
     }, 100);
 });
 
+// BOTONES CONTACTO -------------------------------------------------------------
+const contactBtns = document.querySelectorAll(".contact-btn");
+
+contactBtns.forEach(contactBtn => {
+  let btnOnda;
+
+  contactBtn.addEventListener("mouseenter", (e) => {
+    const left = e.clientX - e.target.getBoundingClientRect().left;
+    const top = e.clientY - e.target.getBoundingClientRect().top;
+    
+    btnOnda = document.createElement("div");
+    btnOnda.classList.add("onda");
+    btnOnda.style.left = `${left}px`;
+    btnOnda.style.top = `${top}px`;
+    
+    // Agregar la onda solo al botón sobre el que se está haciendo hover
+    e.target.prepend(btnOnda);
+  });
+
+  contactBtn.addEventListener("mouseleave", () => {
+    // Remover la onda cuando el mouse sale
+    if (btnOnda) {
+      contactBtn.removeChild(btnOnda);
+    }
+  });
+});
+
+// ENVIO -----------------------------------
+  // Whatsapp ---------------
+  document.getElementById("whatsappBtn").addEventListener("click", () => {
+      let telefono = "34675873053"; 
+      let mensaje = encodeURIComponent("Hola, quiero contactar contigo.");
+      let url = `https://wa.me/${telefono}?text=${mensaje}`;
+
+      window.open(url, "_blank"); // Abre WhatsApp en una nueva pestaña
+  });
+
+  // Mail ---------------
+  document.getElementById("mailBtn").addEventListener("click", () => {
+      window.location.href = "mailto:helenajgraphics@gmail.com?subject=Asunto%20del%20email&body=Hola,%20quiero%20contactar%20contigo.";
+    });
+
+
+
