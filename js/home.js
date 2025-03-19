@@ -154,10 +154,22 @@ const scrollCooldown = 300;
 const scrollSensitivity = 0.05; 
 const scrollThreshold = 5;
 
-// Función para actualizar la rotación del menú
+// Función para verificar si estamos en modo móvil
+function isMobileView() {
+    return window.innerWidth <= 500;
+}
+
+// Función para actualizar la rotación del menú (ÚNICA versión)
 function rotateMenu(direction) {
-    currentAngle -= direction * anglePerItem;
-    scrollMenu.style.transform = `perspective(1000px) rotateY(${currentAngle}deg)`;
+    if (isMobileView()) {
+        // En móvil: invertimos dirección y usamos rotateX
+        currentAngle -= (-direction) * anglePerItem;
+        scrollMenu.style.transform = `perspective(1000px) rotateX(${currentAngle}deg)`;
+    } else {
+        // En escritorio: comportamiento original con rotateY
+        currentAngle -= direction * anglePerItem;
+        scrollMenu.style.transform = `perspective(1000px) rotateY(${currentAngle}deg)`;
+    }
 }
 
 // Detector de wheel con acumulación y sensibilidad reducida
@@ -222,8 +234,8 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
- //Moviles -------------------------
- let touchStartX = 0;
+// Moviles -------------------------
+let touchStartX = 0;
 let touchStartY = 0;
 
 scrollMenu.addEventListener('touchstart', function(e) {
@@ -264,9 +276,10 @@ scrollMenu.addEventListener('touchend', function(e) {
     
     if (Math.abs(diffX) > Math.abs(diffY)) {
         // Movimiento horizontal
-        direction = diffX > 0 ? -1 : 1; // Invertido para que coincida con la dirección natural
+        direction = diffX > 0 ? -1 : 1;
     } else {
-        // Movimiento vertical
+        // Movimiento vertical - para que deslizar hacia abajo muestre elementos superiores
+        // y deslizar hacia arriba muestre elementos inferiores
         direction = diffY > 0 ? -1 : 1;
     }
     
@@ -280,54 +293,38 @@ scrollMenu.addEventListener('touchend', function(e) {
     }, scrollCooldown);
 }, { passive: false });
 
-
 // Botones de navegación --------------------------
-    const leftButton = document.querySelector('.button-scroll-menu button:first-child');
-    const rightButton = document.querySelector('.button-scroll-menu button:last-child');
+const leftButton = document.querySelector('.button-scroll-menu button:first-child');
+const rightButton = document.querySelector('.button-scroll-menu button:last-child');
 
-    function handleButtonClick(direction) {
-        return function () {
-            const now = Date.now();
+function handleButtonClick(direction) {
+    return function () {
+        const now = Date.now();
 
-            if (isProcessingScroll || now - lastScrollTime < scrollCooldown) {
-                return;
-            }
-
-            isProcessingScroll = true;
-            lastScrollTime = now;
-
-            rotateMenu(direction);
-
-            setTimeout(() => {
-                isProcessingScroll = false;
-            }, scrollCooldown);
-        };
-    }
-
-    leftButton.addEventListener('click', handleButtonClick(-1));
-    rightButton.addEventListener('click', handleButtonClick(1));
-
-// Pantalla movil --------------------------
-    // Modo móvil (menos de 500px)
-    function isMobileView() {
-        return window.innerWidth <= 500;
-    }
-
-    function rotateMenu(direction) {
-        currentAngle -= direction * anglePerItem;
-        
-         if (isMobileView()) {
-            // Rotación en el eje X para pantallas pequeñas
-            scrollMenu.style.transform = `perspective(1000px) rotateX(${currentAngle}deg)`;
-        } else {
-            // Rotación en el eje Y para pantallas normales
-            scrollMenu.style.transform = `perspective(1000px) rotateY(${currentAngle}deg)`;
+        if (isProcessingScroll || now - lastScrollTime < scrollCooldown) {
+            return;
         }
-    }
-    window.addEventListener('resize', function() {
-        rotateMenu(0); 
-    });
 
-    window.addEventListener('load', function() {
-        rotateMenu(0); 
-    });
+        isProcessingScroll = true;
+        lastScrollTime = now;
+
+        rotateMenu(direction);
+
+        setTimeout(() => {
+            isProcessingScroll = false;
+        }, scrollCooldown);
+    };
+}
+
+leftButton.addEventListener('click', handleButtonClick(-1));
+rightButton.addEventListener('click', handleButtonClick(1));
+
+// Aseguramos que la rotación se actualice cuando cambie el tamaño de pantalla
+window.addEventListener('resize', function() {
+    rotateMenu(0); // 0 para no cambiar el ángulo, solo actualizar el eje
+});
+
+// Inicialización al cargar la página
+window.addEventListener('load', function() {
+    rotateMenu(0); // Establece la rotación inicial en el eje apropiado
+});
