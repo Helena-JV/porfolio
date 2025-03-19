@@ -314,3 +314,30 @@
     transform: rotateY(calc(var(--position) * (360deg / var(--menu-items)))) 
               translateZ(clamp(200px, 30vw, 400px)); /* Este es el efecto de profundidad */
 }
+
+/*BOTONES SCROLL MENU---------------*/
+.button-scroll-menu {
+    width: 90%;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-scroll-menu button img {
+    width: 20px;
+}
+
+.button-scroll-menu button:last-child {
+    transform: rotate(180deg);
+}
+
+.button-scroll-menu button:hover {
+    transition: scale 0.2s ease-in-out;
+    scale: 1.2;
+}
+
+@media screen and (max-width: 600px) {
+    .button-scroll-menu {
+        display: none;
+    } 
+}

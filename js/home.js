@@ -309,3 +309,52 @@ scrollMenu.addEventListener('touchend', function(e) {
         isProcessingScroll = false;
     }, scrollCooldown);
 }, { passive: false });
+
+
+const leftButton = document.querySelector('.button-scroll-menu button:first-child');
+const rightButton = document.querySelector('.button-scroll-menu button:last-child');
+
+// Botón para rotar hacia la izquierda
+leftButton.addEventListener('click', function() {
+    const now = Date.now();
+    
+    // Solo permitimos una rotación cada cierto tiempo
+    if (isProcessingScroll || now - lastScrollTime < scrollCooldown) {
+        return;
+    }
+    
+    // Marcamos que estamos procesando una rotación
+    isProcessingScroll = true;
+    lastScrollTime = now;
+    
+    // Rotamos hacia la izquierda (dirección negativa)
+    rotateMenu(-1);
+    
+    // Liberamos el bloqueo después del tiempo de cooldown
+    setTimeout(() => {
+        isProcessingScroll = false;
+    }, scrollCooldown);
+});
+
+// Botones de navegación --------------------------
+// Botón para rotar hacia la derecha
+rightButton.addEventListener('click', function() {
+    const now = Date.now();
+    
+    // Solo permitimos una rotación cada cierto tiempo
+    if (isProcessingScroll || now - lastScrollTime < scrollCooldown) {
+        return;
+    }
+    
+    // Marcamos que estamos procesando una rotación
+    isProcessingScroll = true;
+    lastScrollTime = now;
+    
+    // Rotamos hacia la derecha (dirección positiva)
+    rotateMenu(1);
+    
+    // Liberamos el bloqueo después del tiempo de cooldown
+    setTimeout(() => {
+        isProcessingScroll = false;
+    }, scrollCooldown);
+});
