@@ -1,4 +1,4 @@
-/*HEADER------------------------------------------------*/
+/*INTRO===================================================================================*/
 .header-bar {
     z-index: 100;
     width: 100%;
@@ -91,7 +91,7 @@
     }
     
 
-/*INTRO------------------------------------------------*/
+/*INTRO===================================================================================*/
 .intro-container {
     inset: 0;
     z-index: 2;
@@ -135,7 +135,7 @@
     height: var(--header-height);
 }
 
-/*HOME------------------------------------------------*/
+/*HOME===================================================================================*/
 .home-container {
     height: 100dvh; /* 🔹 Ocupa toda la pantalla al inicio */
     display: flex;
@@ -267,3 +267,50 @@
       height: 220%;
     }
   }
+
+
+/*SCROLL MENU---------------*/
+
+.scroll-menu-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    scroll-snap-type: y mandatory;  /* Necesario para el snap */
+    scroll-behavior: smooth; /* Suaviza el desplazamiento */
+}
+
+.scroll-menu {
+    position: relative;
+    width: clamp(200px, 40%, 300px);
+    aspect-ratio: 1 / 1;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+}
+
+.scroll-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--yellow);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: clamp(28px, 4vw, 40px);
+    filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.2));
+
+    scroll-snap-align: center;
+    
+    transform-origin: 50% 50%;
+    transform: rotateY(calc(var(--position) * (360deg / var(--menu-items)))) 
+              translateZ(clamp(200px, 30vw, 400px)); /* Este es el efecto de profundidad */
+}
