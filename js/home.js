@@ -154,19 +154,24 @@ const scrollCooldown = 300;
 const scrollSensitivity = 0.05; 
 const scrollThreshold = 5;
 
-// Función para verificar si estamos en modo móvil
 function isMobileView() {
     return window.innerWidth <= 500;
 }
 
-// Función para actualizar la rotación del menú (ÚNICA versión)
 function rotateMenu(direction) {
+    // Detectar específicamente iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
     if (isMobileView()) {
-        // En móvil: invertimos dirección y usamos rotateX
-        currentAngle -= (-direction) * anglePerItem;
+        // iOS: doble inversión para que funcione correctamente
+        if (isIOS) {
+            currentAngle -= direction * anglePerItem; // Sin inversión para iOS
+        } else {
+            currentAngle -= (-direction) * anglePerItem; // Inversión para Android
+        }
         scrollMenu.style.transform = `perspective(1000px) rotateX(${currentAngle}deg)`;
     } else {
-        // En escritorio: comportamiento original con rotateY
+        // Escritorio: comportamiento original con rotateY
         currentAngle -= direction * anglePerItem;
         scrollMenu.style.transform = `perspective(1000px) rotateY(${currentAngle}deg)`;
     }
@@ -319,12 +324,10 @@ function handleButtonClick(direction) {
 leftButton.addEventListener('click', handleButtonClick(-1));
 rightButton.addEventListener('click', handleButtonClick(1));
 
-// Aseguramos que la rotación se actualice cuando cambie el tamaño de pantalla
 window.addEventListener('resize', function() {
-    rotateMenu(0); // 0 para no cambiar el ángulo, solo actualizar el eje
+    rotateMenu(0); 
 });
 
-// Inicialización al cargar la página
 window.addEventListener('load', function() {
-    rotateMenu(0); // Establece la rotación inicial en el eje apropiado
+    rotateMenu(0); 
 });
