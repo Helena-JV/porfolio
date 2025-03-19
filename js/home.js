@@ -1,4 +1,4 @@
-// ELEMENTOS DEL DOM --------------------------------------------------------
+// ELEMENTOS DEL DOM ==============================================================
 const headerBar = document.querySelector('.header-bar');
 const iconWaveHeader = headerBar.querySelector('.icon-wave-header');
 
@@ -97,7 +97,7 @@ window.addEventListener("resize", () => {
     }, 100);
 });
 
-// BOTONES CONTACTO -------------------------------------------------------------
+// BOTONES CONTACTO  ==============================================================
 const contactBtns = document.querySelectorAll(".contact-btn");
 
 contactBtns.forEach(contactBtn => {
@@ -140,82 +140,64 @@ contactBtns.forEach(contactBtn => {
     });
 
 
-// MENU SCROLL -------------------------------------------------------------
-// Seleccionamos los elementos necesarios
+// MENU SCROLL  ==============================================================
 const scrollMenu = document.querySelector('.scroll-menu');
 const menuItems = document.querySelectorAll('.scroll-item');
 const totalItems = menuItems.length;
-const anglePerItem = 360 / totalItems; // Ángulo por cada elemento
+const anglePerItem = 360 / totalItems;
 
-let currentAngle = 0; // Ángulo inicial
+let currentAngle = 0; 
 let isProcessingScroll = false;
 let lastScrollTime = 0;
 let accumulatedDelta = 0;
-const scrollCooldown = 300; // Tiempo entre rotaciones (aumentado para permitir animación más lenta)
-const scrollSensitivity = 0.05; // Factor de sensibilidad (menor = rotación más lenta)
-const scrollThreshold = 5; // Umbral para activar la rotación
+const scrollCooldown = 300; 
+const scrollSensitivity = 0.05; 
+const scrollThreshold = 5;
 
 // Función para actualizar la rotación del menú
 function rotateMenu(direction) {
-    // Ajustamos el ángulo una posición en la dirección determinada
     currentAngle -= direction * anglePerItem;
-    
-    console.log("Rotating to angle:", currentAngle);
-    
-    // Aplicamos la rotación con una transición suave
     scrollMenu.style.transform = `perspective(1000px) rotateY(${currentAngle}deg)`;
 }
 
 // Detector de wheel con acumulación y sensibilidad reducida
 scrollMenu.addEventListener('wheel', function(e) {
-    e.preventDefault(); // Prevenimos el comportamiento de scroll por defecto
+    e.preventDefault(); 
     
     const now = Date.now();
     
-    // Determinamos el delta mapeado con sensibilidad reducida
     const rawDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    const mappedDelta = rawDelta * scrollSensitivity; // Reducimos la sensibilidad
+    const mappedDelta = rawDelta * scrollSensitivity; 
     
-    // Acumulamos el delta hasta que alcance el umbral
     accumulatedDelta += mappedDelta;
     
-    // Si estamos procesando un scroll, solo acumulamos pero no rotamos aún
     if (isProcessingScroll) {
         return;
     }
     
-    // Si ha pasado suficiente tiempo desde la última rotación y acumulamos suficiente delta
+    // Si ha pasado suficiente tiempo desde la última rotación y se acumula suficiente delta
     if (now - lastScrollTime > scrollCooldown && Math.abs(accumulatedDelta) >= scrollThreshold) {
-        // Determinar la dirección basada en el acumulado
         const direction = Math.sign(accumulatedDelta);
-        
-        // Reiniciamos el acumulador
         accumulatedDelta = 0;
-        
-        // Marcamos que estamos procesando un scroll
         isProcessingScroll = true;
         lastScrollTime = now;
-        
-        // Rotamos exactamente una posición
         rotateMenu(direction);
         
-        // Liberamos el bloqueo después del tiempo de cooldown
         setTimeout(() => {
             isProcessingScroll = false;
         }, scrollCooldown);
     }
 }, { passive: false });
 
-// Opcional: Reiniciamos el acumulador si el cursor sale del elemento
+// Reinicio del acumulador si el cursor sale del elemento
 scrollMenu.addEventListener('mouseleave', function() {
     accumulatedDelta = 0;
 });
 
-// Opcional: Añadir soporte para teclas de flecha
+// Soporte para teclas de flecha
 document.addEventListener('keydown', function(e) {
     const now = Date.now();
     
-    // Solo permitimos una rotación cada cierto tiempo
     if (isProcessingScroll || now - lastScrollTime < scrollCooldown) {
         return;
     }
@@ -229,14 +211,11 @@ document.addEventListener('keydown', function(e) {
     }
     
     if (direction !== 0) {
-        // Marcamos que estamos procesando una rotación
         isProcessingScroll = true;
         lastScrollTime = now;
-        
-        // Rotamos exactamente una posición
+
         rotateMenu(direction);
         
-        // Liberamos el bloqueo después del tiempo de cooldown
         setTimeout(() => {
             isProcessingScroll = false;
         }, scrollCooldown);
@@ -249,46 +228,40 @@ let touchStartY = 0;
 
 scrollMenu.addEventListener('touchstart', function(e) {
     e.preventDefault();
-    // Guardamos la posición inicial del toque
+
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
 }, { passive: false });
 
 scrollMenu.addEventListener('touchmove', function(e) {
-    e.preventDefault(); // Prevenir scroll
+    e.preventDefault(); 
 }, { passive: false });
 
 scrollMenu.addEventListener('touchend', function(e) {
     e.preventDefault();
     
-    // Si estamos procesando un scroll, ignoramos este evento
     if (isProcessingScroll) {
         return;
     }
     
     const now = Date.now();
     
-    // Solo permitimos una rotación cada cierto tiempo
     if (now - lastScrollTime < scrollCooldown) {
         return;
     }
     
-    // Calculamos la diferencia entre la posición inicial y final
     const touchEndX = e.changedTouches[0].clientX;
     const touchEndY = e.changedTouches[0].clientY;
     
-    // Detectamos si el swipe fue más horizontal o vertical
     const diffX = touchEndX - touchStartX;
     const diffY = touchEndY - touchStartY;
     
-    // Si el movimiento es muy pequeño, lo ignoramos (tap, no swipe)
     if (Math.abs(diffX) < 30 && Math.abs(diffY) < 30) {
         return;
     }
     
     let direction = 0;
     
-    // Determinamos la dirección basándonos en el movimiento más grande
     if (Math.abs(diffX) > Math.abs(diffY)) {
         // Movimiento horizontal
         direction = diffX > 0 ? -1 : 1; // Invertido para que coincida con la dirección natural
@@ -297,64 +270,64 @@ scrollMenu.addEventListener('touchend', function(e) {
         direction = diffY > 0 ? -1 : 1;
     }
     
-    // Marcamos que estamos procesando una rotación
     isProcessingScroll = true;
     lastScrollTime = now;
     
-    // Rotamos exactamente una posición
     rotateMenu(direction);
     
-    // Liberamos el bloqueo después del tiempo de cooldown
     setTimeout(() => {
         isProcessingScroll = false;
     }, scrollCooldown);
 }, { passive: false });
 
 
-const leftButton = document.querySelector('.button-scroll-menu button:first-child');
-const rightButton = document.querySelector('.button-scroll-menu button:last-child');
-
-// Botón para rotar hacia la izquierda
-leftButton.addEventListener('click', function() {
-    const now = Date.now();
-    
-    // Solo permitimos una rotación cada cierto tiempo
-    if (isProcessingScroll || now - lastScrollTime < scrollCooldown) {
-        return;
-    }
-    
-    // Marcamos que estamos procesando una rotación
-    isProcessingScroll = true;
-    lastScrollTime = now;
-    
-    // Rotamos hacia la izquierda (dirección negativa)
-    rotateMenu(-1);
-    
-    // Liberamos el bloqueo después del tiempo de cooldown
-    setTimeout(() => {
-        isProcessingScroll = false;
-    }, scrollCooldown);
-});
-
 // Botones de navegación --------------------------
-// Botón para rotar hacia la derecha
-rightButton.addEventListener('click', function() {
-    const now = Date.now();
-    
-    // Solo permitimos una rotación cada cierto tiempo
-    if (isProcessingScroll || now - lastScrollTime < scrollCooldown) {
-        return;
+    const leftButton = document.querySelector('.button-scroll-menu button:first-child');
+    const rightButton = document.querySelector('.button-scroll-menu button:last-child');
+
+    function handleButtonClick(direction) {
+        return function () {
+            const now = Date.now();
+
+            if (isProcessingScroll || now - lastScrollTime < scrollCooldown) {
+                return;
+            }
+
+            isProcessingScroll = true;
+            lastScrollTime = now;
+
+            rotateMenu(direction);
+
+            setTimeout(() => {
+                isProcessingScroll = false;
+            }, scrollCooldown);
+        };
     }
-    
-    // Marcamos que estamos procesando una rotación
-    isProcessingScroll = true;
-    lastScrollTime = now;
-    
-    // Rotamos hacia la derecha (dirección positiva)
-    rotateMenu(1);
-    
-    // Liberamos el bloqueo después del tiempo de cooldown
-    setTimeout(() => {
-        isProcessingScroll = false;
-    }, scrollCooldown);
-});
+
+    leftButton.addEventListener('click', handleButtonClick(-1));
+    rightButton.addEventListener('click', handleButtonClick(1));
+
+// Pantalla movil --------------------------
+    // Modo móvil (menos de 500px)
+    function isMobileView() {
+        return window.innerWidth <= 500;
+    }
+
+    function rotateMenu(direction) {
+        currentAngle -= direction * anglePerItem;
+        
+         if (isMobileView()) {
+            // Rotación en el eje X para pantallas pequeñas
+            scrollMenu.style.transform = `perspective(1000px) rotateX(${currentAngle}deg)`;
+        } else {
+            // Rotación en el eje Y para pantallas normales
+            scrollMenu.style.transform = `perspective(1000px) rotateY(${currentAngle}deg)`;
+        }
+    }
+    window.addEventListener('resize', function() {
+        rotateMenu(0); 
+    });
+
+    window.addEventListener('load', function() {
+        rotateMenu(0); 
+    });

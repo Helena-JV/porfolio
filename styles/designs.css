@@ -315,6 +315,15 @@
               translateZ(clamp(200px, 30vw, 400px)); /* Este es el efecto de profundidad */
 }
 
+@media screen and (max-width: 500px) {
+
+    .scroll-item{
+        transform-origin: center center;
+        transform: rotateX(calc(var(--position) * (360deg / var(--menu-items)))) 
+                  translateZ(clamp(220px, 20vw, 300px));
+    }
+}
+
 /*BOTONES SCROLL MENU---------------*/
 .button-scroll-menu {
     width: 90%;
