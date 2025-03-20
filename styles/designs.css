@@ -220,7 +220,7 @@
     gap:clamp(10px, 1vw, 30px);
     position: absolute;
     right:clamp(40px, 5vw, 100px);
-    bottom: clamp(80px, 14vh, 100px);
+    bottom: clamp(50px, 12vh, 100px);
   }
   
   .contact-btn {
@@ -320,11 +320,12 @@
     .scroll-item{
         transform-origin: center center;
         transform: rotateX(calc(var(--position) * (360deg / var(--menu-items)))) 
-                  translateZ(clamp(220px, 20vw, 300px));
+                  translateZ(clamp(170px, 30vh, 300px));
     }
 }
 
 /*BOTONES SCROLL MENU---------------*/
+
 .button-scroll-menu {
     width: 90%;
     position: absolute;
@@ -347,6 +348,20 @@
 
 @media screen and (max-width: 600px) {
     .button-scroll-menu {
-        display: none;
+        flex-direction: column;
+        align-items: center;
+        height: 90%;
     } 
+
+    .button-scroll-menu button img {
+        width: 15px;
+    }
+
+    .button-scroll-menu button:first-child {
+        transform: rotate(90deg);
+    }
+
+    .button-scroll-menu button:last-child {
+        transform: rotate(-90deg);
+    }
 }

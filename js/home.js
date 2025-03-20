@@ -147,75 +147,38 @@ const totalItems = menuItems.length;
 const anglePerItem = 360 / totalItems;
 
 let currentAngle = 0; 
-let isProcessingScroll = false;
-let lastScrollTime = 0;
-let accumulatedDelta = 0;
-const scrollCooldown = 300; 
-const scrollSensitivity = 0.05; 
-const scrollThreshold = 5;
+let isProcessingAction = false;
+let lastActionTime = 0;
+const actionCooldown = 300; 
 
 function isMobileView() {
     return window.innerWidth <= 500;
 }
 
 function rotateMenu(direction) {
-    // Detectar específicamente iOS
+    // Detector específico para iOS
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     
     if (isMobileView()) {
-        // iOS: doble inversión para que funcione correctamente
+        // iOS: comportamiento específico
         if (isIOS) {
-            currentAngle -= direction * anglePerItem; // Sin inversión para iOS
+            currentAngle -= direction * anglePerItem;
         } else {
             currentAngle -= (-direction) * anglePerItem; // Inversión para Android
         }
         scrollMenu.style.transform = `perspective(1000px) rotateX(${currentAngle}deg)`;
     } else {
-        // Escritorio: comportamiento original con rotateY
+        // Escritorio: comportamiento con rotateY
         currentAngle -= direction * anglePerItem;
         scrollMenu.style.transform = `perspective(1000px) rotateY(${currentAngle}deg)`;
     }
 }
 
-// Detector de wheel con acumulación y sensibilidad reducida
-scrollMenu.addEventListener('wheel', function(e) {
-    e.preventDefault(); 
-    
-    const now = Date.now();
-    
-    const rawDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    const mappedDelta = rawDelta * scrollSensitivity; 
-    
-    accumulatedDelta += mappedDelta;
-    
-    if (isProcessingScroll) {
-        return;
-    }
-    
-    // Si ha pasado suficiente tiempo desde la última rotación y se acumula suficiente delta
-    if (now - lastScrollTime > scrollCooldown && Math.abs(accumulatedDelta) >= scrollThreshold) {
-        const direction = Math.sign(accumulatedDelta);
-        accumulatedDelta = 0;
-        isProcessingScroll = true;
-        lastScrollTime = now;
-        rotateMenu(direction);
-        
-        setTimeout(() => {
-            isProcessingScroll = false;
-        }, scrollCooldown);
-    }
-}, { passive: false });
-
-// Reinicio del acumulador si el cursor sale del elemento
-scrollMenu.addEventListener('mouseleave', function() {
-    accumulatedDelta = 0;
-});
-
 // Soporte para teclas de flecha
 document.addEventListener('keydown', function(e) {
     const now = Date.now();
     
-    if (isProcessingScroll || now - lastScrollTime < scrollCooldown) {
+    if (isProcessingAction || now - lastActionTime < actionCooldown) {
         return;
     }
     
@@ -228,77 +191,18 @@ document.addEventListener('keydown', function(e) {
     }
     
     if (direction !== 0) {
-        isProcessingScroll = true;
-        lastScrollTime = now;
+        isProcessingAction = true;
+        lastActionTime = now;
 
         rotateMenu(direction);
         
         setTimeout(() => {
-            isProcessingScroll = false;
-        }, scrollCooldown);
+            isProcessingAction = false;
+        }, actionCooldown);
     }
 });
 
-// Moviles -------------------------
-let touchStartX = 0;
-let touchStartY = 0;
-
-scrollMenu.addEventListener('touchstart', function(e) {
-    e.preventDefault();
-
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-}, { passive: false });
-
-scrollMenu.addEventListener('touchmove', function(e) {
-    e.preventDefault(); 
-}, { passive: false });
-
-scrollMenu.addEventListener('touchend', function(e) {
-    e.preventDefault();
-    
-    if (isProcessingScroll) {
-        return;
-    }
-    
-    const now = Date.now();
-    
-    if (now - lastScrollTime < scrollCooldown) {
-        return;
-    }
-    
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchEndY = e.changedTouches[0].clientY;
-    
-    const diffX = touchEndX - touchStartX;
-    const diffY = touchEndY - touchStartY;
-    
-    if (Math.abs(diffX) < 30 && Math.abs(diffY) < 30) {
-        return;
-    }
-    
-    let direction = 0;
-    
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-        // Movimiento horizontal
-        direction = diffX > 0 ? -1 : 1;
-    } else {
-        // Movimiento vertical - para que deslizar hacia abajo muestre elementos superiores
-        // y deslizar hacia arriba muestre elementos inferiores
-        direction = diffY > 0 ? -1 : 1;
-    }
-    
-    isProcessingScroll = true;
-    lastScrollTime = now;
-    
-    rotateMenu(direction);
-    
-    setTimeout(() => {
-        isProcessingScroll = false;
-    }, scrollCooldown);
-}, { passive: false });
-
-// Botones de navegación --------------------------
+// Botones de navegación
 const leftButton = document.querySelector('.button-scroll-menu button:first-child');
 const rightButton = document.querySelector('.button-scroll-menu button:last-child');
 
@@ -306,24 +210,25 @@ function handleButtonClick(direction) {
     return function () {
         const now = Date.now();
 
-        if (isProcessingScroll || now - lastScrollTime < scrollCooldown) {
+        if (isProcessingAction || now - lastActionTime < actionCooldown) {
             return;
         }
 
-        isProcessingScroll = true;
-        lastScrollTime = now;
+        isProcessingAction = true;
+        lastActionTime = now;
 
         rotateMenu(direction);
 
         setTimeout(() => {
-            isProcessingScroll = false;
-        }, scrollCooldown);
+            isProcessingAction = false;
+        }, actionCooldown);
     };
 }
 
 leftButton.addEventListener('click', handleButtonClick(-1));
 rightButton.addEventListener('click', handleButtonClick(1));
 
+// Responsive y carga inicial
 window.addEventListener('resize', function() {
     rotateMenu(0); 
 });
