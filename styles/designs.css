@@ -1,4 +1,4 @@
-/*INTRO===================================================================================*/
+/*HEADER===================================================================================*/
 .header-bar {
     z-index: 100;
     width: 100%;
@@ -17,6 +17,7 @@
     }
 }
 
+    /*MENU ---------------------------------*/
     /*MENU ICON*/
     .menu-icon {
         width: auto;
@@ -41,14 +42,11 @@
     /*MENU CONTAINER*/
     .menu-container {
         position: absolute;
+        top: 0;
         right: 0;
         height: 100dvh;
         width: clamp(500px, 80vw, 3000px);
-        pointer-events: none;
         z-index: 10;
-        overflow: hidden;
-        position: absolute;
-        top: 0;
         overflow: hidden;
     }
     
@@ -57,13 +55,13 @@
         height: 100%;
         position: absolute;
         top: 0;
+        right: -60vw;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         justify-content: center;
         background-color: white;
-        right: -60vw;
         transition: right 0.5s ease-in-out;
         filter: drop-shadow(-10px 0 20px rgba(0, 0, 0, 0.2));
     }
@@ -76,13 +74,39 @@
         gap: 5vh;
     }
     
+    .menu-container ul li a {
+        position: relative;
+        transition: color 0.3s ease-in-out;
+    }
+    
+    .menu-container ul li a:hover {
+        color: var(--azul);
+    }
+    
+    .menu-container ul li a::before {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background-color: var(--azul);
+        transition: width 0.2s ease-in-out, left 0.2s ease-in-out;
+    }
+    
+    .menu-container ul li a:hover::before {
+        width: 100%;
+        left: 0;
+    }
+    
     .menu-wrapper.active-menu {
         right: 0;
     }
     
+    
  
 
-    /*ICONO HJ*/
+    /*ICONO HJ----------------------------------------*/
     .icon-wave-header {
         position: absolute;
         width: 40%;
@@ -321,7 +345,7 @@
     } 
   }
 
-/*SCROLL MENU---------------*/
+/*SCROLL MENU===================================================================================*/
 
 .scroll-menu-container {
     position: relative;
