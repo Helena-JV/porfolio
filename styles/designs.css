@@ -29,6 +29,8 @@
         justify-content: center;
         flex-direction: column;
         z-index: 11;
+        transition: scale 0.1s ease-in-out;
+        cursor: pointer;
 
         div {
             position: absolute;
@@ -37,6 +39,10 @@
             background-color: blue;
             border-radius: 10px;
         }
+    }
+
+    .menu-icon:hover {
+        scale: 1.15;
     }
 
     /*MENU CONTAINER*/
@@ -371,6 +377,10 @@
 }
 
 .scroll-item {
+    pointer-events: auto;
+    transition: background-color 0.2s ease-in-out;
+    transition: transform 0.1s ease-in-out;
+
     position: absolute;
     width: 100%;
     height: 100%;
@@ -389,6 +399,20 @@
     transform: rotateY(calc(var(--position) * (360deg / var(--menu-items)))) 
               translateZ(clamp(200px, 30vw, 400px)); /* Este es el efecto de profundidad */
 }
+
+.scroll-item span {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.scroll-item:hover {
+    transform: rotateY(calc(var(--position) * (360deg / var(--menu-items)))) 
+              translateZ(clamp(200px, 30vw, 400px))
+              scale(1.1);        
+}
+
+
 
 @media screen and (max-width: 500px) {
 

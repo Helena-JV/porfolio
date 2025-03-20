@@ -141,6 +141,7 @@ contactBtns.forEach(contactBtn => {
 
 
 // MENU SCROLL  ==============================================================
+
 const scrollMenu = document.querySelector('.scroll-menu');
 const menuItems = document.querySelectorAll('.scroll-item');
 const totalItems = menuItems.length;
