@@ -1,4 +1,5 @@
 const menuBtn = document.querySelectorAll(".menu-icon div");
+const menu = document.querySelector(".menu-wrapper");
 
 // TIMELINE ----------------------------------------------------
     const menuBtn_tl = gsap.timeline({
@@ -23,7 +24,10 @@ const menuBtn = document.querySelectorAll(".menu-icon div");
 function menuBtnAnimation() {
     if (menuBtn_tl.progress() === 0) {
         menuBtn_tl.play();
+        menu.classList.add("active-menu");
     } else {
         menuBtn_tl.reverse();
+        menu.classList.remove("active-menu");
+
     }
 }

@@ -5,6 +5,10 @@
     --header-height: clamp(3rem, 5vw, 5rem);
 }
 
+body{
+    overflow-x: hidden;
+}
+
 /*COLORES------------------------------------------------------*/
 /*AZUL*/
 .clr-azul {

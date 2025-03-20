@@ -17,7 +17,7 @@
     }
 }
 
-    /*MENU*/
+    /*MENU ICON*/
     .menu-icon {
         width: auto;
         height: clamp(25px, 3vw, 40px);
@@ -27,6 +27,7 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
+        z-index: 11;
 
         div {
             position: absolute;
@@ -36,6 +37,50 @@
             border-radius: 10px;
         }
     }
+
+    /*MENU CONTAINER*/
+    .menu-container {
+        position: absolute;
+        right: 0;
+        height: 100dvh;
+        width: clamp(500px, 80vw, 3000px);
+        pointer-events: none;
+        z-index: 10;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        overflow: hidden;
+    }
+    
+    .menu-wrapper {
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        background-color: white;
+        right: -60vw;
+        transition: right 0.5s ease-in-out;
+        filter: drop-shadow(-10px 0 20px rgba(0, 0, 0, 0.2));
+    }
+    
+    .menu-container ul {
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5vh;
+    }
+    
+    .menu-wrapper.active-menu {
+        right: 0;
+    }
+    
+ 
 
     /*ICONO HJ*/
     .icon-wave-header {
