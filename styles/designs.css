@@ -52,7 +52,7 @@
         top: 0;
         right: -70vw;
         height: 100dvh;
-        width: clamp(500px, 50vw, 3000px);
+        width: clamp(250px, 50vw, 3000px);
         z-index: 10;
         overflow: hidden;
         display: flex;
