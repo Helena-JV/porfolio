@@ -1,5 +1,5 @@
 const menuBtn = document.querySelectorAll(".menu-icon div");
-const menu = document.querySelector(".menu-wrapper");
+const menu = document.querySelector(".menu-container");
 
 // TIMELINE ----------------------------------------------------
     const menuBtn_tl = gsap.timeline({
